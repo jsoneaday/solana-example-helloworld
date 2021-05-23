@@ -1,0 +1,33 @@
+image:
+  file: .gitpod.Dockerfile
+tasks:
+  - init: |
+      sh -c "$(curl -sSfL https://release.solana.com/v1.6.6/install)"
+      export PATH=~/.local/share/solana/install/active_release/bin:$PATH
+      npm install
+      npm run build:program-rust
+      solana config set --url localhost
+      solana-keygen new --no-bip39-passphrase
+    command: |
+      gp open README-gitpod.md
+github:
+  prebuilds:
+    # enable for the master/default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: false
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: true
+ports:
+  - port: 1024
+    onOpen: ignore
+  - port: 8899
+    onOpen: ignore
+  - port: 8900
+    onOpen: ignore
+  - port: 9900
+    onOpen: ignore
